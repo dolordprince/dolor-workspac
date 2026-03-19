@@ -1,15 +1,14 @@
-github.com/dolordprince/dolor-workspac
-
-name: REACT.DAV Build Pipeline
+name: REACT.DAV Build
 
 on:
   push:
     branches:
       - main
+      - master
+  workflow_dispatch:
 
 jobs:
-
-  build-android:
+  build:
     name: Build Android APK
     runs-on: ubuntu-latest
     steps:
@@ -32,10 +31,4 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Build APK
-        run: |
-          EAS_SKIP_AUTO_FINGERPRINT=1 \
-          eas build \
-          --platform android \
-          --profile preview \
-          --non-interactive \
-          --no-wait
+        run: EAS_SKIP_AUTO_FINGERPRINT=1 eas build --platform android --profile preview --non-interactive --no-wait
